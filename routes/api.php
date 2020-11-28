@@ -34,9 +34,9 @@ use Illuminate\Support\Facades\Route;
 503 Service Unavailable	Service Unavailable.
 */
 Route::post('/v1/login', function (Request $request) {
-    $login = $request->post('login', '');
+    $email = $request->post('email', '');
     $password = $request->post('password', '');
-sleep(4);
+sleep(2); // TODO: remove
     if (empty($login) or empty($password)) {
         return response()->json([
             'message' => 'wrong credentials'
