@@ -18,7 +18,7 @@
         mounted() {
             console.log('logout');
 
-            Vue.$cookies.remove('access_token');
+            localStorage.removeItem('access_token');
             window.location.href = '/';
         }
     }

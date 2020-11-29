@@ -97,14 +97,8 @@
                         if (token != '') {
                             console.log('token = ' + token);
 
-                            Vue.$cookies.config(60 * 60 * 24 * 7); // 7 days
-                            Vue.$cookies.set('access_token', token);
-
-                            if ($cookies.isKey('access_token')) {
-                                window.location.href = '/';
-                            } else {
-                                this.error = 'unable to save token to cookies';
-                            }
+                            localStorage.setItem('access_token', token);
+                            window.location.href = '/';
                         }
                     })
                     .catch((error) => {

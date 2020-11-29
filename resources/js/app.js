@@ -2,9 +2,6 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-Vue.use(require('vue-cookies'))
-
-
 Vue.config.productionTip = false
 
 import vMainWrapper from './components/v-main-wrapper.vue'

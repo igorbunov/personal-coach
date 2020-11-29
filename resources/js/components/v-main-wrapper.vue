@@ -72,10 +72,11 @@
         },
         watch: {},
         mounted() {
-            if ($cookies.isKey('access_token')) {
-                let token = Vue.$cookies.get('access_token');
-
-                this.SET_ACCESS_TOKEN(token);
+            if (localStorage.getItem('access_token') !== null) {
+                console.log('theres token in local storage');
+                this.SET_ACCESS_TOKEN(localStorage.getItem('access_token'));
+            } else {
+                console.log('nothing in local storage');
             }
 
             let page = document.getElementById('page');
