@@ -9,7 +9,6 @@
         name: 'v-left-menu',
         components: {},
         props: [
-            'page'
         ],
         data() {
             return {}

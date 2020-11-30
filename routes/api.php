@@ -37,9 +37,9 @@ Route::post('/v1/login', function (Request $request) {
     $email = $request->post('email', '');
     $password = $request->post('password', '');
 sleep(2); // TODO: remove
-    if (empty($login) or empty($password)) {
+    if (empty($email) or empty($password)) {
         return response()->json([
-            'message' => 'wrong credentials'
+            'message' => 'no credentials'
         ], 400);
     }
 

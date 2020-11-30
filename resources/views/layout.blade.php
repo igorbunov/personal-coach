@@ -8,16 +8,15 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}" />
-    <script src="{{ mix('/js/app.js') }}" defer></script>
 
 </head>
 <body>
     <div class="main-container">
-        <input type="hidden" id="page" value="{{ Route::currentRouteName() }}" />
-
         <div id="app"></div>
     </div>
 
     @include('footer')
+
+    <script src="{{ mix('/js/app.js') }}" defer></script>
 </body>
 </html>

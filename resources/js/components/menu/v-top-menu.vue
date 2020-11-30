@@ -5,14 +5,9 @@
                 v-for="menu in menuItems"
                 v-if="isShowMenuItem(menu)"
             >
-                <a
-                    :href="menu.href"
-                    v-if="!isCurrentPage(menu)"
-                >{{ menu.title }}</a>
-
-                <span
-                    v-if="isCurrentPage(menu)"
-                >{{ menu.title }}</span>
+                <router-link
+                    :to="{ name: menu.route }"
+                >{{ menu.title }}</router-link>
             </li>
         </ul>
     </div>
@@ -25,33 +20,30 @@
         name: 'v-top-menu',
         components: {},
         props: {
-            page: {
-                type: String
-            }
         },
         data() {
             return {
                 menuItems: [
                     {
-                        href: '/',
-                        title: 'Main'
+                        route: 'home',
+                        title: 'Home'
                     }, {
-                        href: '/profile',
+                        route: 'profile',
                         title: 'Profile',
                         requireAuth: true
                     }, {
-                        href: '/about',
+                        route: 'about',
                         title: 'About'
                     }, {
-                        href: '/login',
+                        route: 'login',
                         title: 'Login',
                         requireAuth: false
                     }, {
-                        href: '/logout',
+                        route: 'logout',
                         title: 'Logout',
                         requireAuth: true
                     }, {
-                        href: '/register',
+                        route: 'register',
                         title: 'Register',
                         requireAuth: false
                     }
@@ -74,19 +66,9 @@
                 }
 
                 return !menu.requireAuth;
-            },
-            isCurrentPage(menu) {
-                if (this.page == 'index' && menu.href == '/') {
-                    return true;
-                }
-
-                return ('/' + this.page == menu.href);
             }
         },
         watch: {
-            page() {
-                console.log('watch page', this.page);
-            }
         },
         mounted() {
         }
@@ -95,9 +77,10 @@
 
 <style>
     .v-top-menu {
-        padding: 10px 40px;
+        padding: 12px 40px;
         background-color: rgb(29, 67, 84);
-        font-size: 24px;
+        font-size: 20px;
+        height: 60px;
     }
     .v-top-menu > ul{
         list-style: none;
@@ -107,10 +90,12 @@
         padding: 0;
     }
 
-    .v-top-menu > ul > li > a{
-        color: lightyellow;
+    .v-top-menu > ul > li > a.router-link-exact-active.router-link-active {
+        color: yellow;
+        font-weight: bold;
+        font-size: 21px;
     }
-    .v-top-menu > ul > li > span{
+    .v-top-menu > ul > li > a{
         color: greenyellow;
     }
 </style>

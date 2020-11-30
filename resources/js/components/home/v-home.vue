@@ -1,12 +1,12 @@
 <template>
-    <div class="v-index">
-        <h1>This is index page</h1>
+    <div class="v-home">
+        <h1>This is home page</h1>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'v-index',
+        name: 'v-home',
         components: {},
         props: {},
         data() {
@@ -20,7 +20,7 @@
 </script>
 
 <style>
-    .v-index {
+    .v-home {
 
     }
 </style>
