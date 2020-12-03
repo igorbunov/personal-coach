@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -17,16 +18,25 @@ class AppKey
     public function handle(Request $request, Closure $next)
     {
         $token = $request->header('access_token', '');
+        $currentUserId = (int) $request->header('current_user_id', 0);
 
-        if (empty($token)) {
+        if (empty($token) or empty($currentUserId)) {
             return response()->json([
-                'message' => 'acess token not found'
+                'message' => 'Not valid access info'
             ], 401);
         }
 
-        if ($token != '54hwg34fegqeawfwfwe') {
+        $user = User::find($currentUserId);
+
+        if (empty($user)) {
             return response()->json([
-                'message' => 'wrong access token'
+                'message' => 'Wrong user'
+            ], 401);
+        }
+
+        if ($token != $user->token) {
+            return response()->json([
+                'message' => 'Wrong token'
             ], 401);
         }
 

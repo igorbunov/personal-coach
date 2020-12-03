@@ -36,30 +36,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/v1/register', \App\Http\Controllers\UserRegisterController::class);
 
-Route::post('/v1/login', function (Request $request) {
-    $email = $request->post('email', '');
-    $password = $request->post('password', '');
-sleep(2); // TODO: remove
-    if (empty($email) or empty($password)) {
-        return response()->json([
-            'message' => 'no credentials'
-        ], 400);
-    }
-
-    if ($email == 'admin@gmail.com' and $password == '123') {
-        return response()->json([
-            'token' => '54hwg34fegqeawfwfwe'
-        ], 200);
-    }
-
-    return response()->json([
-        'message' => 'wrong credentials'
-    ], 400);
-});
-
 Route::middleware([\App\Http\Middleware\AppKey::class])->group(function () {
-
-    // http://127.0.0.1:8000/api/v1/info
+    Route::get('/v1/user/{id}', [\App\Http\Controllers\UserControler::class, 'show']);
 
     Route::get('/v1/info', function () {
         return response()->json([
@@ -67,3 +45,25 @@ Route::middleware([\App\Http\Middleware\AppKey::class])->group(function () {
         ], 200);
     });
 });
+
+
+//Route::post('/v1/login', function (Request $request) {
+//    $email = $request->post('email', '');
+//    $password = $request->post('password', '');
+//sleep(2); // TODO: remove
+//    if (empty($email) or empty($password)) {
+//        return response()->json([
+//            'message' => 'no credentials'
+//        ], 400);
+//    }
+//
+//    if ($email == 'admin@gmail.com' and $password == '123') {
+//        return response()->json([
+//            'token' => '54hwg34fegqeawfwfwe'
+//        ], 200);
+//    }
+//
+//    return response()->json([
+//        'message' => 'wrong credentials'
+//    ], 400);
+//});

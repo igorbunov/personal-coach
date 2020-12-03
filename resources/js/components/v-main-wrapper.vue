@@ -36,10 +36,10 @@
         watch: {},
         mounted() {
             if (localStorage.getItem('access_token') !== null) {
-                console.log('theres token in local storage');
                 this.SET_ACCESS_TOKEN(localStorage.getItem('access_token'));
-            } else {
-                console.log('nothing in local storage');
+
+                axios.defaults.headers.common['current_user_id'] = localStorage.getItem('user_id');
+                axios.defaults.headers.common['access_token'] = localStorage.getItem('access_token');
             }
         }
     }

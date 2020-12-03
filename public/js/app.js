@@ -2181,19 +2181,23 @@ __webpack_require__.r(__webpack_exports__);
       this.isLoading = true;
       axios.post('/api/v1/register', {
         email: this.email,
-        password: this.password,
-        password2: this.password2
+        password: this.password
       }).then(function (response) {
         var token = response.data.token;
 
         if (token != '') {
-          console.log('token = ' + token);
+          localStorage.setItem('user_id', response.data.id);
           localStorage.setItem('access_token', token);
           window.location.href = '/';
         }
       })["catch"](function (error) {
-        console.log(error.response.status, error.message, error.response.data.message);
-        _this.error = error.response.data.message;
+        var errorArr = [];
+
+        for (var k in error.response.data.errors) {
+          errorArr.push(error.response.data.errors[k]);
+        }
+
+        _this.error = errorArr.join('<br/>');
       })["finally"](function () {
         _this.isLoading = false;
       });
@@ -2375,6 +2379,19 @@ __webpack_require__.r(__webpack_exports__);
   watch: {},
   mounted: function mounted() {
     console.log('component mounted');
+    var userId = localStorage.getItem('user_id');
+    axios.get('/api/v1/user/' + userId).then(function (response) {
+      console.log(response.data);
+    })["catch"](function (error) {
+      var errorArr = [];
+
+      for (var k in error.response.data.errors) {
+        errorArr.push(error.response.data.errors[k]);
+      }
+
+      var res = errorArr.join('<br/>');
+      console.log(res);
+    });
   }
 });
 
@@ -2428,10 +2445,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   watch: {},
   mounted: function mounted() {
     if (localStorage.getItem('access_token') !== null) {
-      console.log('theres token in local storage');
       this.SET_ACCESS_TOKEN(localStorage.getItem('access_token'));
-    } else {
-      console.log('nothing in local storage');
+      axios.defaults.headers.common['current_user_id'] = localStorage.getItem('user_id');
+      axios.defaults.headers.common['access_token'] = localStorage.getItem('access_token');
     }
   }
 });

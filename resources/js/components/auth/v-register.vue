@@ -88,22 +88,26 @@
 
                 axios.post('/api/v1/register', {
                     email: this.email,
-                    password: this.password,
-                    password2: this.password2
+                    password: this.password
                 })
                     .then((response) => {
                         let token = response.data.token;
 
                         if (token != '') {
-                            console.log('token = ' + token);
-
+                            localStorage.setItem('user_id', response.data.id);
                             localStorage.setItem('access_token', token);
+
                             window.location.href = '/';
                         }
                     })
                     .catch((error) => {
-                        console.log(error.response.status, error.message, error.response.data.message);
-                        this.error = error.response.data.message;
+                        var errorArr = [];
+
+                        for (var k in error.response.data.errors) {
+                            errorArr.push(error.response.data.errors[k]);
+                        }
+
+                        this.error = errorArr.join('<br/>');
                     })
                     .finally(() => {
                         this.isLoading = false;
