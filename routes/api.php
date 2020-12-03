@@ -33,6 +33,9 @@ use Illuminate\Support\Facades\Route;
 500 Internal Server Error	Servers are not working as expected. The request is probably valid but needs to be requested again later.
 503 Service Unavailable	Service Unavailable.
 */
+
+Route::post('/v1/register', \App\Http\Controllers\UserRegisterController::class);
+
 Route::post('/v1/login', function (Request $request) {
     $email = $request->post('email', '');
     $password = $request->post('password', '');
