@@ -2,10 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Notifications\UserTestNotification;
 use Illuminate\Http\Request;
 
 class UserControler extends Controller
 {
+    public function sendEmail(Request $request)
+    {
+        $userId = (int) $request->header('current_user_id');
+
+        $user = User::find($userId);
+
+        $user->notify(new UserTestNotification());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'email sended'
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *

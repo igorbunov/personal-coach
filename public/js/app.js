@@ -2224,6 +2224,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'v-home',
   components: {},
@@ -2232,7 +2236,16 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    sendEmail: function sendEmail() {
+      console.log('send');
+      axios.post('/api/v1/send_email').then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error.response.status, error.message, error.response.data.message);
+      });
+    }
+  },
   watch: {},
   mounted: function mounted() {}
 });
@@ -39384,18 +39397,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "v-home" }, [
-      _c("h1", [_vm._v("This is home page")])
+  return _c("div", { staticClass: "v-home" }, [
+    _c("h1", [_vm._v("This is home page")]),
+    _vm._v(" "),
+    _c("div", { staticStyle: { padding: "30px" } }, [
+      _c("button", { on: { click: _vm.sendEmail } }, [_vm._v("send emial")])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

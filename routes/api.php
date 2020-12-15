@@ -44,6 +44,8 @@ Route::middleware([\App\Http\Middleware\AppKey::class])->group(function () {
             'message' => 'hello'
         ], 200);
     });
+
+    Route::post('/v1/send_email', [\App\Http\Controllers\UserControler::class, 'sendEmail']);
 });
 
 
